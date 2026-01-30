@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import React from 'react';
 import { render } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import App from '@/App';
 import { emitAvatarUpdate } from '@/services/events';
@@ -14,7 +15,9 @@ describe('Avatar update events propagate to store', () => {
       </MemoryRouter>
     );
     const before = useGameStore.getState();
-    emitAvatarUpdate({ userId: 'kid-1', coinDelta: 25, positionDelta: 1 });
+    act(() => {
+      emitAvatarUpdate({ userId: 'kid-1', coinDelta: 25, positionDelta: 1 });
+    });
     const after = useGameStore.getState();
     expect(after.coinBalance).toBe(before.coinBalance + 25);
     expect(after.position).toBeGreaterThanOrEqual(before.position + 1);

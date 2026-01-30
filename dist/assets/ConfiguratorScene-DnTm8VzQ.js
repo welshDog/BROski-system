@@ -1,0 +1,2 @@
+import{j as s,r as e}from"./vendor-react-D0K50pYM.js";import{bW as r}from"./vendor-three-DDDaaqjL.js";function i(){return s.jsx("div",{style:{width:"100%",height:"100%"},children:s.jsxs(r,{camera:{position:[0,2,4],fov:50},children:[s.jsx("ambientLight",{intensity:.6}),s.jsx(e.Suspense,{fallback:null,children:s.jsxs("mesh",{children:[s.jsx("boxGeometry",{args:[1,1,1]}),s.jsx("meshStandardMaterial",{color:"#4F46E5"})]})})]})})}export{i as default};
+//# sourceMappingURL=ConfiguratorScene-DnTm8VzQ.js.map

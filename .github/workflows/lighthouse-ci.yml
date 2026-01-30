@@ -8,22 +8,22 @@ on:
 jobs:
   lhci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
       - name: Install deps
         run: npm ci
-        working-directory: broski-app
       - name: Build app
         run: npm run build && npm run lint:assets
-        working-directory: broski-app
       - name: Start preview server
         run: nohup npm run preview -- --port 4173 &
-        working-directory: broski-app
       - name: Wait for server
         run: |
           for i in {1..30}; do
@@ -33,20 +33,17 @@ jobs:
           echo "Preview server did not start in time" && exit 1
       - name: Run Lighthouse CI
         run: npx @lhci/cli autorun --config=.lighthouserc.js
-        working-directory: broski-app
       - name: Compare with baseline (mobile)
         run: node scripts/compare-lhci.js mobile
-        working-directory: broski-app
       - name: Run bundle analysis
         run: npm run analyze:bundle
-        working-directory: broski-app
       - name: Upload bundle report
         uses: actions/upload-artifact@v4
         with:
           name: bundle-size-report-mobile
           path: |
-            broski-app/docs/bundle-size-report.md
-            broski-app/perf-baselines/bundle-size-baseline.json
+            docs/bundle-size-report.md
+            perf-baselines/bundle-size-baseline.json
       - name: Post PR comment (mobile)
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
@@ -54,8 +51,8 @@ jobs:
           script: |
             const fs = require('fs');
             const path = require('path');
-            const report = fs.readFileSync(path.join(process.cwd(), 'broski-app', 'docs', 'bundle-size-report.md'), 'utf-8');
-            const diffPath = path.join(process.cwd(), 'broski-app', 'perf-baselines', 'diff-mobile.json');
+            const report = fs.readFileSync(path.join(process.cwd(), 'docs', 'bundle-size-report.md'), 'utf-8');
+            const diffPath = path.join(process.cwd(), 'perf-baselines', 'diff-mobile.json');
             const hasDiff = fs.existsSync(diffPath);
             const diff = hasDiff ? JSON.parse(fs.readFileSync(diffPath, 'utf-8')) : [];
             const summary = diff.length ? `Regression candidates (>10%):\n` + diff.map(d => `- ${d.url}: perfDrop=${(d.perfDrop*100).toFixed(1)}% TTI↑=${(d.ttiRise*100).toFixed(1)}%`).join('\n') : 'No significant regression.';
@@ -68,22 +65,22 @@ jobs:
             });
   lhci-desktop:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
       - name: Install deps
         run: npm ci
-        working-directory: broski-app
       - name: Build app
         run: npm run build && npm run lint:assets
-        working-directory: broski-app
       - name: Start preview server
         run: nohup npm run preview -- --port 4173 &
-        working-directory: broski-app
       - name: Wait for server
         run: |
           for i in {1..30}; do
@@ -93,20 +90,17 @@ jobs:
           echo "Preview server did not start in time" && exit 1
       - name: Run Lighthouse CI (Desktop)
         run: npx @lhci/cli autorun --config=.lighthouserc.desktop.js
-        working-directory: broski-app
       - name: Compare with baseline (desktop)
         run: node scripts/compare-lhci.js desktop
-        working-directory: broski-app
       - name: Run bundle analysis
         run: npm run analyze:bundle
-        working-directory: broski-app
       - name: Upload bundle report
         uses: actions/upload-artifact@v4
         with:
           name: bundle-size-report-desktop
           path: |
-            broski-app/docs/bundle-size-report.md
-            broski-app/perf-baselines/bundle-size-baseline.json
+            docs/bundle-size-report.md
+            perf-baselines/bundle-size-baseline.json
       - name: Post PR comment (desktop)
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
@@ -114,8 +108,8 @@ jobs:
           script: |
             const fs = require('fs');
             const path = require('path');
-            const report = fs.readFileSync(path.join(process.cwd(), 'broski-app', 'docs', 'bundle-size-report.md'), 'utf-8');
-            const diffPath = path.join(process.cwd(), 'broski-app', 'perf-baselines', 'diff-desktop.json');
+            const report = fs.readFileSync(path.join(process.cwd(), 'docs', 'bundle-size-report.md'), 'utf-8');
+            const diffPath = path.join(process.cwd(), 'perf-baselines', 'diff-desktop.json');
             const hasDiff = fs.existsSync(diffPath);
             const diff = hasDiff ? JSON.parse(fs.readFileSync(diffPath, 'utf-8')) : [];
             const summary = diff.length ? `Regression candidates (>10%):\n` + diff.map(d => `- ${d.url}: perfDrop=${(d.perfDrop*100).toFixed(1)}% TTI↑=${(d.ttiRise*100).toFixed(1)}%`).join('\n') : 'No significant regression.';

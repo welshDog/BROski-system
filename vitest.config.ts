@@ -14,9 +14,28 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['tests/setup.ts'],
     globals: true,
+    pool: 'threads',
+    include: ['tests/**/*.{test,spec}.{ts,tsx,js,jsx}'],
+    exclude: [
+      'node_modules/**',
+      'tests/rules.test.*',
+      'tests/integration/approvalWorkflow.emu.test.*'
+    ],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'lcov', 'html'],
+      include: [
+        'src/utils/**/*.{ts,js}',
+        'src/stores/perfStore.{ts,js}',
+        'src/perf/observer.{ts,js}',
+        'src/components/UI/CoinCounter.{ts,js}',
+        'src/services/notificationService.{ts,js}'
+      ],
+      exclude: [
+        'src/components/3D/**',
+        '**/*.stories.*',
+        '**/*.test.*'
+      ],
       thresholds: {
         lines: 90,
         statements: 90,

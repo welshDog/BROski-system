@@ -1,2 +1,0 @@
-import{j as e,r as s}from"./vendor-react-DunV8oed.js";import{bW as r}from"./vendor-three-LDanEuKm.js";function a(){return e.jsx("div",{style:{width:"100%",height:"100%"},children:e.jsxs(r,{camera:{position:[0,1.5,3],fov:55},children:[e.jsx("ambientLight",{intensity:.7}),e.jsx(s.Suspense,{fallback:null,children:e.jsxs("mesh",{children:[e.jsx("sphereGeometry",{args:[.8,16,16]}),e.jsx("meshStandardMaterial",{color:"#10B981"})]})})]})})}export{a as default};
-//# sourceMappingURL=ARViewerScene-D99QgdeN.js.map

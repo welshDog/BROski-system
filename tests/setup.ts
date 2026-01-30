@@ -9,8 +9,60 @@ class RO {
 // @ts-ignore
 global.ResizeObserver = RO as any;
 
+// BroadcastChannel polyfill for jsdom
+class BC {
+  name: string;
+  listeners: Set<(e: MessageEvent) => void> = new Set();
+  constructor(name: string) { this.name = name; }
+  postMessage(data: unknown) {
+    const evt = { data } as MessageEvent;
+    this.listeners.forEach((fn) => fn(evt));
+  }
+  addEventListener(_type: 'message', fn: (e: MessageEvent) => void) { this.listeners.add(fn); }
+  removeEventListener(_type: 'message', fn: (e: MessageEvent) => void) { this.listeners.delete(fn); }
+  close() { this.listeners.clear(); }
+}
+// @ts-ignore
+global.BroadcastChannel = BC as any;
+
+// AudioContext stubs for three.js AudioListener
+// @ts-ignore
+global.AudioContext = function () {} as any;
+// @ts-ignore
+global.webkitAudioContext = function () {} as any;
+
 // Silence React warnings from R3F intrinsic elements by mapping them to divs
 import { vi } from 'vitest';
+
+// Firebase module mocks for tests
+vi.mock('firebase/app', () => ({
+  initializeApp: () => ({})
+}));
+
+vi.mock('firebase/firestore', async () => {
+  return {
+    getFirestore: () => ({}),
+    enableIndexedDbPersistence: () => Promise.resolve(),
+    doc: (_db: unknown, _col: string, _id: string) => ({ _path: `${_col}/${_id}` }),
+    getDoc: async (_ref: unknown) => ({ data: () => ({ role: 'parent', familyId: 'fam-1' }) })
+  } as any;
+});
+
+vi.mock('firebase/auth', () => ({
+  getAuth: () => ({}),
+  signInWithEmailAndPassword: async (_auth: unknown, _email: string, _password: string) => ({ user: { uid: 'test-user' } })
+}));
+
+vi.mock('firebase/storage', () => ({
+  getStorage: () => ({})
+}));
+
+// Stub project-level firebase adapter to avoid named export resolution issues in JS builds
+vi.mock('@/services/firebase/db', () => ({
+  db: {},
+  storage: {},
+  auth: {}
+}));
 vi.mock('react/jsx-runtime', async () => {
   const original = await vi.importActual<any>('react/jsx-runtime');
   const r3fTags = new Set([
