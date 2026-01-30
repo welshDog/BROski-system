@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -11,6 +12,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 export const db = /* @__PURE__ */ getFirestore(app);
+export const storage = /* @__PURE__ */ getStorage(app);
 let authInstance = null;
 try {
     authInstance = /* @__PURE__ */ getAuth(app);
@@ -22,3 +24,15 @@ enableIndexedDbPersistence(db).catch((err) => {
         console.warn('Multiple tabs open, persistence disabled');
     }
 });
+export async function getUserFamilyId(userId) {
+    try {
+        const { doc, getDoc } = await import('firebase/firestore');
+        const ref = doc(db, 'users', userId);
+        const snap = await getDoc(ref);
+        const data = snap.data();
+        return data?.familyId ?? null;
+    }
+    catch {
+        return null;
+    }
+}

@@ -1,6 +1,7 @@
 export const analytics = {
     send(type, payload) {
-        if (import.meta.env.MODE === 'development') {
+        const mode = import.meta.env.MODE;
+        if (mode === 'development') {
             console.log('[analytics]', type, payload);
             return;
         }

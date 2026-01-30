@@ -19,4 +19,7 @@ attachLinkIntentPrefetch('nav a');
 
 if (import.meta.env.PROD) {
   import('./monitor/vitals').then((m) => m.initVitals());
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+  }
 }

@@ -22,7 +22,10 @@ export default function Avatar({ boardPosition }) {
             const newPos = worldPosition(boardPosition, radius);
             const pos = groupRef.current.position;
             if (pos) {
-                animateTo(pos, { x: newPos.x, z: newPos.z }, 2);
+                animateTo(pos, { x: newPos.x, z: newPos.z }, 1.2, 'calm');
+                const rot = groupRef.current.rotation;
+                const angle = (boardPosition / 50) * Math.PI * 2 + Math.PI / 2;
+                animateTo(rot, { y: angle }, 1.0, 'snappy');
             }
         }
     }, [boardPosition, radius]);

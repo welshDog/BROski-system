@@ -7,13 +7,13 @@ service cloud.firestore {
 
     match /avatars/{avatarId} {
       allow read: if request.auth != null && request.auth.uid == resource.data.userId;
-      allow update: if false;
+      allow update: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/families/$(resource.data.familyId)).data.parentIds;
     }
 
     match /taskInstances/{taskId} {
-      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
-      allow read, update: if request.auth != null &&
-        request.auth.uid in get(/databases/$(database)/documents/families/$(request.resource.data.familyId)).data.parentIds;
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId && request.resource.data.familyId != null;
+      allow read: if request.auth != null && (request.auth.uid == resource.data.userId || request.auth.uid in get(/databases/$(database)/documents/families/$(resource.data.familyId)).data.parentIds);
+      allow update: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/families/$(resource.data.familyId)).data.parentIds;
     }
 
     match /cosmetics/{cosmeticId} {

@@ -15,7 +15,6 @@
 
 ## 📁 Project Structure
 
-```
 broski-app/
 ├── public/
 │   ├── avatars/           # Avatar sprites & 3D models
@@ -101,7 +100,6 @@ broski-app/
 ├── tailwind.config.js
 ├── firebase.config.js
 └── package.json
-```
 
 ---
 
@@ -110,7 +108,9 @@ broski-app/
 ### **Collections:**
 
 #### 1. **`users/`** – All users (parents + kids)
+
 ```javascript
+
 {
   id: "user-123",
   email: "parent@example.com",
@@ -123,7 +123,9 @@ broski-app/
 ```
 
 #### 2. **`families/`** – Family profiles
+
 ```javascript
+
 {
   id: "family-abc",
   name: "The Smiths",
@@ -136,6 +138,7 @@ broski-app/
 ```
 
 #### 3. **`avatars/`** – Kid avatar profiles
+
 ```javascript
 {
   id: "avatar-kid-1",
@@ -157,6 +160,7 @@ broski-app/
 ```
 
 #### 4. **`chores/`** – Task definitions
+
 ```javascript
 {
   id: "chore-001",
@@ -172,6 +176,7 @@ broski-app/
 ```
 
 #### 5. **`taskInstances/`** – Individual task submissions
+
 ```javascript
 {
   id: "task-inst-001",
@@ -188,6 +193,7 @@ broski-app/
 ```
 
 #### 6. **`streaks/`** – Daily streak tracking
+
 ```javascript
 {
   id: "streak-kid-1",
@@ -200,6 +206,7 @@ broski-app/
 ```
 
 #### 7. **`cosmetics/`** – Avatar cosmetics catalog
+
 ```javascript
 {
   id: "hat-wizard-001",

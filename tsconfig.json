@@ -16,6 +16,6 @@
       "@components/*": ["src/components/*"]
     }
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests", ".storybook"],
   "exclude": ["node_modules", "dist"]
 }

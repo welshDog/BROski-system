@@ -17,13 +17,13 @@ jobs:
           node-version: 18
       - name: Install deps
         run: npm ci
-        working-directory: broski-app
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
       - name: Unit tests with coverage
         run: npm run test:coverage
-        working-directory: broski-app
       - name: Firestore rules tests via Emulator Suite
         run: npx firebase emulators:exec --only firestore,auth,storage "npm run test:rules"
-        working-directory: broski-app
       - name: Build app
         run: npm run build
-        working-directory: broski-app

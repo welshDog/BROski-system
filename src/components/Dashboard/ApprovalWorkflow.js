@@ -26,18 +26,12 @@ export default function ApprovalWorkflow() {
         };
     }, []);
     const approveTask = async (taskId) => {
-        const [{ db }, { updateDoc, doc }] = await Promise.all([
-            import('@/services/firebase/db'),
-            import('firebase/firestore')
-        ]);
-        await updateDoc(doc(db, 'taskInstances', taskId), { status: 'approved' });
+        const { approveTask } = await import('@/services/approvalWorkflow');
+        await approveTask(taskId, 'parent');
     };
     const rejectTask = async (taskId) => {
-        const [{ db }, { updateDoc, doc }] = await Promise.all([
-            import('@/services/firebase/db'),
-            import('firebase/firestore')
-        ]);
-        await updateDoc(doc(db, 'taskInstances', taskId), { status: 'rejected' });
+        const { rejectTask } = await import('@/services/approvalWorkflow');
+        await rejectTask(taskId, 'parent', 'Incomplete');
     };
     return (_jsxs("div", { children: [_jsx("h3", { children: "Approval Workflow" }), tasks.map((t) => (_jsxs("div", { children: [_jsx("span", { children: t.choreId }), _jsx("button", { onClick: () => approveTask(t.id), children: "Approve" }), _jsx("button", { onClick: () => rejectTask(t.id), children: "Reject" })] }, t.id)))] }));
 }
