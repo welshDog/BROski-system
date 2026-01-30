@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /families/{familyId} {
+      allow read, write: if request.auth != null && request.auth.uid in resource.data.parentIds;
+    }
+
+    match /avatars/{avatarId} {
+      allow read: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow update: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/families/$(resource.data.familyId)).data.parentIds;
+    }
+
+    match /taskInstances/{taskId} {
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId && request.resource.data.familyId != null;
+      allow read: if request.auth != null && (request.auth.uid == resource.data.userId || request.auth.uid in get(/databases/$(database)/documents/families/$(resource.data.familyId)).data.parentIds);
+      allow update: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/families/$(resource.data.familyId)).data.parentIds;
+    }
+
+    match /cosmetics/{cosmeticId} {
+      allow read: if true;
+    }
+  }
+}

@@ -13,6 +13,7 @@ You work hyperfocus sessions. You need tools that **don't interrupt flow**, get 
 This is your MVP booster. Windsurf's Cascade agent is built exactly for the kind of rapid development you do.
 
 **Why Windsurf:**
+
 - **Cascade Agent** – Can chain up to 20 tool calls in one flow (install deps → configure → write feature → test → fix errors) without you touching anything[65]
 - **Real-time adaptation** – If you manually edit code during Cascade's flow, it **notices and auto-adjusts** all dependent code[65]
 - **AI Rules + Memories** – Set once, reuse forever. Your coding style, patterns, and project rules stay consistent[62]
@@ -20,7 +21,7 @@ This is your MVP booster. Windsurf's Cascade agent is built exactly for the kind
 - **Write Mode vs Chat Mode** – Direct edits across multiple files (Write) or advisory guidance (Chat)
 
 **For Your BROski Project:**
-```
+
 1. Set AI Rules:
    - "Always use React Three Fiber for 3D components"
    - "Zustand stores for all state management"
@@ -36,9 +37,9 @@ This is your MVP booster. Windsurf's Cascade agent is built exactly for the kind
 3. Prompt Cascade for full features:
    "Build the GameBoard component with Three.js, Avatar movement animation, coin counter HUD"
    → Windsurf generates all files, links imports, runs tests
-```
-
+   
 **Setup:**
+
 - Download from windsurf.com
 - Install VS Code extension
 - Open your BROski project
@@ -50,6 +51,7 @@ This is your MVP booster. Windsurf's Cascade agent is built exactly for the kind
 ### **Perplexity AI (For Research + Quick Answers)**
 
 You're already using this. Keep using it for:
+
 - "How do I animate avatar movement in Three.js?"
 - "Best practices for Firebase Firestore structure"
 - "Zustand best patterns for game state"
@@ -97,6 +99,7 @@ npm run storybook
 ```
 
 **For BROski:**
+
 ```javascript
 // components/UI/CoinCounter.stories.jsx
 export default {
@@ -126,6 +129,7 @@ npm install --save-dev jest @testing-library/react @testing-library/jest-dom
 ```
 
 **Quick test for GameBoard:**
+
 ```javascript
 // components/3D/GameBoard.test.jsx
 import { render, screen } from '@testing-library/react';
@@ -152,6 +156,7 @@ npm install -g plop
 ```
 
 **Create plopfile.js in root:**
+
 ```javascript
 module.exports = function (plop) {
   plop.setGenerator('component', {
@@ -177,6 +182,7 @@ module.exports = function (plop) {
 ```
 
 **Use it:**
+
 ```bash
 plop component
 # Prompts: "CoinCounter"
@@ -202,6 +208,7 @@ firebase emulators:start
 ```
 
 **Benefits:**
+
 - Test Firestore rules locally
 - Approve/reject tasks without real auth
 - Leaderboard queries before shipping
@@ -220,6 +227,7 @@ vercel
 ```
 
 **Your workflow:**
+
 ```
 Write code → Commit to GitHub → Vercel auto-deploys → Parents test live
 ```
@@ -239,7 +247,7 @@ Built into VS Code. As you type, it suggests whole functions.
 
 ### **1. Three.js Playground**
 
-Before coding, test 3D ideas: https://threejs.org/editor
+Before coding, test 3D ideas: <https://threejs.org/editor>
 
 Drag/drop models, tweak cameras, see results live.
 
@@ -247,7 +255,7 @@ Drag/drop models, tweak cameras, see results live.
 
 ### **2. Babylon.js Playground (Alternative)**
 
-If Three.js feels heavyweight, Babylon has a web editor too: https://playground.babylonjs.com/
+If Three.js feels heavyweight, Babylon has a web editor too: <https://playground.babylonjs.com/>
 
 ---
 
@@ -288,6 +296,7 @@ Vite does this by default. Code changes appear **instantly** in browser without 
 ### **3. .env Configuration (Security + Speed)**
 
 Create `.env.example` (commit to repo):
+
 ```
 VITE_FIREBASE_API_KEY=xxx
 VITE_FIREBASE_PROJECT_ID=xxx
@@ -297,12 +306,14 @@ VITE_WINDSURF_API_KEY=xxx
 ```
 
 Create `.env` (local only, `.gitignore` ignores it):
+
 ```
 VITE_FIREBASE_API_KEY=your_actual_key
 VITE_FIREBASE_PROJECT_ID=broski-app-prod
 ```
 
 Access in code:
+
 ```javascript
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -349,6 +360,7 @@ const firebaseConfig = {
 ## 🎯 Part 7: Windsurf Cascade Prompts (Copy-Paste These)
 
 ### **Prompt 1: Generate GameBoard Component**
+
 ```
 Build a React Three Fiber component called GameBoard that:
 - Renders 50 board spaces in a circular path
@@ -361,6 +373,7 @@ Build a React Three Fiber component called GameBoard that:
 ```
 
 ### **Prompt 2: Generate Avatar Component**
+
 ```
 Build a React Three Fiber avatar component that:
 - Loads a simple 3D model (cube with colors for now)
@@ -372,6 +385,7 @@ Use gsap for smooth animation tweens.
 ```
 
 ### **Prompt 3: Generate Parent Approval Dashboard**
+
 ```
 Build a React component ParentDashboard that:
 - Shows real-time list of pending tasks from Firebase
@@ -385,6 +399,7 @@ Use React hooks for state.
 ```
 
 ### **Prompt 4: Generate Zustand Store Setup**
+
 ```
 Create Zustand stores for BROski app:
 1. gameStore: position, coinBalance, level, experience, moveAvatar(), addCoins()

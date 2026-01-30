@@ -1,0 +1,2 @@
+function i(o){const s=[];o.endsWith("/product-3d")&&s.push("/icons/3d.svg","/config/scene.json"),o.endsWith("/configurator")&&s.push("/icons/gear.svg","/config/configurator.json"),o.endsWith("/ar-viewer")&&s.push("/icons/ar.svg","/config/ar.json"),s.forEach(e=>{const n=document.createElement("link");n.rel="preload",n.href=e,n.as="fetch",n.crossOrigin="anonymous",document.head.appendChild(n)})}export{i as preloadAssetsForRoute};
+//# sourceMappingURL=preload-CrQAAXoQ.js.map
