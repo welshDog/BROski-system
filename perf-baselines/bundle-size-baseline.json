@@ -1,0 +1,45 @@
+{
+  "total": 2835783,
+  "items": [
+    {
+      "file": "dist/index.html",
+      "bytes": 571
+    },
+    {
+      "file": "dist/assets/ARViewerScene-CGTCfxuw.js",
+      "bytes": 459
+    },
+    {
+      "file": "dist/assets/ConfiguratorScene-BFEOh2cQ.js",
+      "bytes": 451
+    },
+    {
+      "file": "dist/assets/GameBoard-yZxUV6OA.js",
+      "bytes": 7161
+    },
+    {
+      "file": "dist/assets/index-CL_bl1i1.js",
+      "bytes": 70683
+    },
+    {
+      "file": "dist/assets/index-DDe9a02L.js",
+      "bytes": 3384
+    },
+    {
+      "file": "dist/assets/vendor-drei-Dcl5Q0UN.js",
+      "bytes": 997509
+    },
+    {
+      "file": "dist/assets/vendor-react-D8If-1Jv.js",
+      "bytes": 329637
+    },
+    {
+      "file": "dist/assets/vendor-three-C9VK7XdB.js",
+      "bytes": 1293984
+    },
+    {
+      "file": "dist/assets/vision_bundle-Cg0OFbR3.js",
+      "bytes": 131944
+    }
+  ]
+}
